@@ -67,6 +67,7 @@
                     <systemPropertyVariables>
                         <!-- consumer tests write the pact file into the repo (no broker) -->
                         <pact.rootDir>${project.basedir}/pacts</pact.rootDir>
+                        <pact.writer.overwrite>true</pact.writer.overwrite>
                         <pact_do_not_track>true</pact_do_not_track>
                     </systemPropertyVariables>
                 </configuration>
