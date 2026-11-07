@@ -21,6 +21,7 @@
         <module>order-service</module>
         <module>notification-service</module>
         <module>integration-tests</module>
+        <module>contract-tests</module>
     </modules>
 
     <properties>

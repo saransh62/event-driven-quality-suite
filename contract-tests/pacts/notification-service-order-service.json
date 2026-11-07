@@ -1,0 +1,138 @@
+{
+  "consumer": {
+    "name": "notification-service"
+  },
+  "interactions": [
+    {
+      "description": "a request for an order that does not exist",
+      "key": "a5b6103b",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "no order 00000000-0000-4000-8000-000000000404 exists"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/orders/00000000-0000-4000-8000-000000000404"
+      },
+      "response": {
+        "status": 404
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "a request for an existing order",
+      "key": "16d419b5",
+      "pending": false,
+      "providerStates": [
+        {
+          "name": "order 3f1c2b7e-8a4d-4e5f-9b6a-1c2d3e4f5a6b exists"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/orders/3f1c2b7e-8a4d-4e5f-9b6a-1c2d3e4f5a6b"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "amount": 49.9,
+            "customerEmail": "ada@example.com",
+            "id": "3f1c2b7e-8a4d-4e5f-9b6a-1c2d3e4f5a6b",
+            "product": "Keyboard",
+            "quantity": 2,
+            "status": "CREATED"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.amount": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "number"
+                }
+              ]
+            },
+            "$.customerEmail": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                }
+              ]
+            },
+            "$.product": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.quantity": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.status": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "CREATED|CANCELLED"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json.*"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "transport": "http",
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.6.17"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "order-service"
+  }
+}
