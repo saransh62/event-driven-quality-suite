@@ -1,0 +1,5 @@
+src/
+target/classes/
+target/test-classes/
+target/generated-*/
+target/maven-*/
